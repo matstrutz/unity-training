@@ -30,6 +30,7 @@ public class SwordSkill : Skill {
     [SerializeField] private GameObject swordPrefab;
     [SerializeField] private Vector2 launchForce;
     [SerializeField] private float swordGravity;
+    [SerializeField] private float freezedTimeDuration = 0.7F;
 
     [Header("Aim Dots")]
     [SerializeField] private int numberOfDots;
@@ -83,7 +84,7 @@ public class SwordSkill : Skill {
             newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration, hitCooldown);
         }
 
-        newSwordScript.SetupSword(finalDir, swordGravity, player);
+        newSwordScript.SetupSword(finalDir, swordGravity, player, freezedTimeDuration);
 
         player.AssignNewSword(newSword);
         DotsActive(false);
