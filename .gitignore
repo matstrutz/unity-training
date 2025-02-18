@@ -3,4 +3,6 @@ Temp/
 obj/
 .vscode/
 *.csproj
+Logs/
+UserSettings/
 
