@@ -13820,6 +13820,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 881377682013046110, guid: 0f7802069eddcd94c9e86102ea720614, type: 3}
+      propertyPath: shrinkSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 881377682013046110, guid: 0f7802069eddcd94c9e86102ea720614, type: 3}
       propertyPath: keyCodeList.Array.size
       value: 1
       objectReference: {fileID: 0}
