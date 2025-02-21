@@ -18,26 +18,27 @@ public class Entity : MonoBehaviour {
     protected bool isKnocked;
 
     #region Components
-    public Animator anim {get; private set;}
-    public Rigidbody2D rb {get; private set;}
-    public EntityFX fx {get; private set;}
+    public Animator anim { get; private set; }
+    public Rigidbody2D rb { get; private set; }
+    public EntityFX fx { get; private set; }
+    public SpriteRenderer sr { get; private set; }
     #endregion
 
-    public int facingDir {get; private set;} = 1;
+    public int facingDir { get; private set; } = 1;
     protected bool facingRight = true;
 
-    protected virtual void Awake(){
-
+    protected virtual void Awake() {
     }
 
-    protected virtual void Start(){
+    protected virtual void Start() {
         fx = GetComponent<EntityFX>();
-        anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
+        sr = GetComponentInChildren<SpriteRenderer>();
+
     }
 
-    protected virtual void Update(){
-
+    protected virtual void Update() {
     }
 
     #region Collision
@@ -47,31 +48,31 @@ public class Entity : MonoBehaviour {
     #endregion
 
     #region Flip
-    public void Flip(){
+    public void Flip() {
         facingDir = facingDir * -1;
         facingRight = !facingRight;
-        transform.Rotate(0,180,0);
+        transform.Rotate(0, 180, 0);
     }
 
-    public void FlipController(float _x){
-        if(_x > 0 && !facingRight){
-            Flip(); 
-        } else if(_x < 0 && facingRight){
-            Flip(); 
+    public void FlipController(float _x) {
+        if (_x > 0 && !facingRight) {
+            Flip();
+        } else if (_x < 0 && facingRight) {
+            Flip();
         }
     }
     #endregion
 
     #region Velocity
     public void ResetVelocity() {
-        if(isKnocked){
+        if (isKnocked) {
             return;
         }
         rb.linearVelocity = new Vector2(0, 0);
     }
 
-    public void SetVelocity(float _xVelocity, float _yVelocity){
-        if(isKnocked){
+    public void SetVelocity(float _xVelocity, float _yVelocity) {
+        if (isKnocked) {
             return;
         }
         rb.linearVelocity = new Vector2(_xVelocity, _yVelocity);
@@ -79,13 +80,21 @@ public class Entity : MonoBehaviour {
     }
     #endregion
 
-    public virtual void Damage(){
+    public void MakeTransparent(bool _transparent){
+        if(_transparent){
+            sr.color = Color.clear;
+        } else {
+            sr.color = Color.white;
+        }
+    }
+
+    public virtual void Damage() {
         fx.StartCoroutine("FlashFX");
         StartCoroutine("HitKnockback");
         // Debug.Log(gameObject.name + " was damaged!");
     }
 
-    protected virtual IEnumerator HitKnockback(){
+    protected virtual IEnumerator HitKnockback() {
         isKnocked = true;
 
         rb.linearVelocity = new Vector2(knockbackDirection.x * -facingDir, knockbackDirection.y);
@@ -95,7 +104,7 @@ public class Entity : MonoBehaviour {
         isKnocked = false;
     }
 
-    public virtual void OnDrawGizmos(){
+    public virtual void OnDrawGizmos() {
         Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
         Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);

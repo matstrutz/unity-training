@@ -20,7 +20,7 @@ public class Player : Entity {
     public bool isBusy { get; private set; }
 
     public SkillManager skill { get; private set; }
-    public GameObject sword {get; private set; }
+    public GameObject sword { get; private set; }
 
     #region States
     public PlayerStateMachine stateMachine { get; private set; }
@@ -36,6 +36,7 @@ public class Player : Entity {
     public PlayerCounterAttackState counterAttackState { get; private set; }
     public PlayerAimSwordState aimSwordState { get; private set; }
     public PlayerCatchSwordState catchSwordState { get; private set; }
+    public PlayerBlackHoleState blackHoleState { get; private set; }
     #endregion 
 
     protected override void Awake() {
@@ -49,12 +50,13 @@ public class Player : Entity {
         dashState = new PlayerDashState(this, stateMachine, "Dash");
         slideState = new PlayerWallSlideState(this, stateMachine, "Slide");
         wallJumpState = new PlayerWallJumpState(this, stateMachine, "Jump");
+
         primaryAttackState = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
         counterAttackState = new PlayerCounterAttackState(this, stateMachine, "Counter");
 
         aimSwordState = new PlayerAimSwordState(this, stateMachine, "AimSword");
         catchSwordState = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
-
+        blackHoleState = new PlayerBlackHoleState(this, stateMachine, "Jump");
     }
 
     protected override void Start() {
@@ -86,13 +88,17 @@ public class Player : Entity {
         }
     }
 
-    public void AssignNewSword(GameObject _newSword){
+    public void AssignNewSword(GameObject _newSword) {
         sword = _newSword;
     }
 
-    public void ClearTheSword(){
+    public void ClearTheSword() {
         stateMachine.ChangeState(catchSwordState);
         Destroy(sword);
+    }
+
+    public void ExitBlackHole() {
+        stateMachine.ChangeState(airState);
     }
 
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();

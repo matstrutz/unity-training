@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1000076393486025342
 Transform:
   m_ObjectHideFlags: 0
@@ -102,11 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hotKeyPrefab: {fileID: 1592352677572471723, guid: 6ab004c157e18474192aa2d2b5e18738, type: 3}
-  keyCodeList: 7100000072000000
-  maxSize: 15
-  growSpeed: 1
-  canGrow: 0
-  targets: []
+  keyCodeList: 71000000
 --- !u!58 &4494988480991505301
 CircleCollider2D:
   m_ObjectHideFlags: 0

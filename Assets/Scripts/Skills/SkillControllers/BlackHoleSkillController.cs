@@ -33,9 +33,7 @@ public class BlackHoleSkillController : MonoBehaviour {
         cloneAttackTimer -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.R)) {
-            DestroyHotkeys();
-            cloneAttackRelease = true;
-            canCreateHotkeys = false;
+            ReleaseAbility();
         }
 
         CloneAttackMechanic();
@@ -51,6 +49,14 @@ public class BlackHoleSkillController : MonoBehaviour {
                 Destroy(gameObject);
             }
         }
+    }
+
+    private void ReleaseAbility() {
+        DestroyHotkeys();
+        cloneAttackRelease = true;
+        canCreateHotkeys = false;
+
+        PlayerManager.instance.player.MakeTransparent(true);
     }
 
     private void CloneAttackMechanic() {
@@ -70,10 +76,15 @@ public class BlackHoleSkillController : MonoBehaviour {
             amountOfAttacks--;
 
             if (amountOfAttacks <= 0) {
-                canShrink = true;
-                cloneAttackRelease = false;
+                Invoke("FinishAbility", 0.5F);
             }
         }
+    }
+
+    private void FinishAbility() {
+        PlayerManager.instance.player.ExitBlackHole();
+        canShrink = true;
+        cloneAttackRelease = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
