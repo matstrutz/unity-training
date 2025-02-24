@@ -13533,6 +13533,7 @@ MonoBehaviour:
   maxSize: 15
   growSpeed: 3
   shrinkSpeed: 6
+  blackHoleDuration: 4
 --- !u!1 &2034570484
 GameObject:
   m_ObjectHideFlags: 0

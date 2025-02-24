@@ -97,10 +97,6 @@ public class Player : Entity {
         Destroy(sword);
     }
 
-    public void ExitBlackHole() {
-        stateMachine.ChangeState(airState);
-    }
-
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
 
     public IEnumerator BusyFor(float _seconds) {
