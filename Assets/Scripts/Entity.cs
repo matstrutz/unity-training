@@ -22,6 +22,8 @@ public class Entity : MonoBehaviour {
     public Rigidbody2D rb { get; private set; }
     public EntityFX fx { get; private set; }
     public SpriteRenderer sr { get; private set; }
+    public EntityStats stats { get; private set; }
+    public CapsuleCollider2D cd { get; private set; }
     #endregion
 
     public int facingDir { get; private set; } = 1;
@@ -35,7 +37,8 @@ public class Entity : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         sr = GetComponentInChildren<SpriteRenderer>();
-
+        stats = GetComponent<EntityStats>();
+        cd = GetComponent<CapsuleCollider2D>();
     }
 
     protected virtual void Update() {
@@ -90,8 +93,7 @@ public class Entity : MonoBehaviour {
 
     public virtual void Damage() {
         fx.StartCoroutine("FlashFX");
-        StartCoroutine("HitKnockback");
-        // Debug.Log(gameObject.name + " was damaged!");
+        StartCoroutine(nameof(HitKnockback));
     }
 
     protected virtual IEnumerator HitKnockback() {
@@ -102,6 +104,9 @@ public class Entity : MonoBehaviour {
         yield return new WaitForSeconds(knockbackDuration);
 
         isKnocked = false;
+    }
+
+    public virtual void Die(){
     }
 
     public virtual void OnDrawGizmos() {

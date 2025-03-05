@@ -25,6 +25,7 @@ public class Enemy : Entity {
     public float searchDistance = 50;
 
     public EnemyStateMachine stateMachine { get; private set; }
+    public string lastAnimBoolName { get; private set; }
 
     protected override void Awake() {
         base.Awake();
@@ -45,6 +46,10 @@ public class Enemy : Entity {
             moveSpeed = defaultMoveSpeed;
             anim.speed = 1;
         }
+    }
+
+    public virtual void AssignLastAnimName(string _animBoolName){
+        lastAnimBoolName = _animBoolName;
     }
 
     protected virtual IEnumerator FreezeTimeFor(float _seconds){

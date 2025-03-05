@@ -48,4 +48,8 @@ public class BlackHoleSkill : Skill {
 
         return false;
     }
+
+    public float GetBlackHoleRadius(){
+        return maxSize / 2;
+    }
 }
